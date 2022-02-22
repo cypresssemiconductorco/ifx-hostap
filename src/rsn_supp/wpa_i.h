@@ -227,6 +227,8 @@ struct wpa_sm {
 
 	bool wmm_enabled;
 	bool driver_bss_selection;
+
+	int suppress_deauth_no_pmksa;
 };
 
 

@@ -1265,6 +1265,13 @@ struct wpa_ssid {
 	 * to use the interface in a bridge.
 	 */
 	int enable_4addr_mode;
+
+	/**
+	 * suppress_deauth_no_pmksa - Whether deauth when PMKSA is empty
+	 * 0 = To deauthenticate if there is no PMKSA entry (default)
+	 * 1 = To suppress deauthenticate if there is no PMKSA entry
+	 */
+	int suppress_deauth_no_pmksa;
 };
 
 #endif /* CONFIG_SSID_H */

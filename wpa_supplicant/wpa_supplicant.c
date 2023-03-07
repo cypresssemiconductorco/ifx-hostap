@@ -7429,7 +7429,9 @@ static int wpa_supplicant_init_iface(struct wpa_supplicant *wpa_s,
 #endif /* CONFIG_MBO */
 
 	wpa_supplicant_set_default_scan_ies(wpa_s);
-
+#ifdef CONFIG_DRIVER_NL80211_IFX
+	wpas_config_offload_send_pfn_config(wpa_s);
+#endif /* CONFIG_DRIVER_NL80211_IFX */
 	return 0;
 }
 
@@ -9323,7 +9325,6 @@ wpa_drv_get_scan_results2(struct wpa_supplicant *wpa_s)
 	return scan_res;
 }
 
-
 bool wpas_ap_link_address(struct wpa_supplicant *wpa_s, const u8 *addr)
 {
 	int i;
@@ -9384,3 +9385,16 @@ bool wpas_is_6ghz_supported(struct wpa_supplicant *wpa_s, bool only_enabled)
 
 	return false;
 }
+#ifdef CONFIG_DRIVER_NL80211_IFX
+int wpas_get_network_blob_count(struct wpa_ssid *head)
+{
+	int count = 0;
+
+	while (head != NULL) {
+		count++;
+		head = head->next;
+	}
+
+	return count;
+}
+#endif /* CONFIG_DRIVER_NL80211_IFX */

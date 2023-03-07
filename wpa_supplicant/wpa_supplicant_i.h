@@ -1812,6 +1812,10 @@ int wpas_mbo_config(struct wpa_supplicant *wpa_s, u8 cmd_id,
 		    bool enable_anqpo, bool enable_cell_pref,
 		    u8 cell_pref_val, u8 cell_cap);
 
+#ifdef CONFIG_DRIVER_NL80211_IFX
+void wpas_config_offload_send_pfn_config(struct wpa_supplicant *wpa_s);
+#endif /* CONFIG_DRIVER_NL80211_IFX */
+
 /* op_classes.c */
 enum chan_allowed {
 	NOT_ALLOWED, NO_IR, RADAR, ALLOWED
@@ -2017,4 +2021,7 @@ bool wpas_is_6ghz_supported(struct wpa_supplicant *wpa_s, bool only_enabled);
 bool wpa_is_non_eht_scs_traffic_desc_supported(struct wpa_bss *bss);
 bool wpas_ap_link_address(struct wpa_supplicant *wpa_s, const u8 *addr);
 
+#ifdef CONFIG_DRIVER_NL80211_IFX
+int wpas_get_network_blob_count(struct wpa_ssid *head);
+#endif /* CONFIG_DRIVER_NL80211_IFX */
 #endif /* WPA_SUPPLICANT_I_H */

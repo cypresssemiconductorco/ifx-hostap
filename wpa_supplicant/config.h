@@ -1792,6 +1792,13 @@ struct wpa_config {
 
 	int mld_force_single_link;
 #endif /* CONFIG_TESTING_OPTIONS */
+#ifdef CONFIG_DRIVER_NL80211_IFX
+	/*
+	 * Flag for pno
+	 * 1 = PNO enable
+	 */
+	u8 pfn_enable;
+#endif /* CONFIG_DRIVER_NL80211_IFX */
 };
 
 

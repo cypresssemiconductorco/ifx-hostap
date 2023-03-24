@@ -3104,6 +3104,7 @@ struct drv_maxidle_wnm_params {
 #ifdef CONFIG_DRIVER_NL80211_IFX
 struct network_blob {
 	char ssid[32];
+	u8 ssid_len;
 	int key_mgmt;
 	char psk[64];
 	char sae_password[64];

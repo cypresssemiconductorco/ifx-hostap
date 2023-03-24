@@ -2022,6 +2022,8 @@ bool wpa_is_non_eht_scs_traffic_desc_supported(struct wpa_bss *bss);
 bool wpas_ap_link_address(struct wpa_supplicant *wpa_s, const u8 *addr);
 
 #ifdef CONFIG_DRIVER_NL80211_IFX
+#define DISABLE_SUPP_SCAN		2
+
 int wpas_get_network_blob_count(struct wpa_ssid *head);
 #endif /* CONFIG_DRIVER_NL80211_IFX */
 #endif /* WPA_SUPPLICANT_I_H */

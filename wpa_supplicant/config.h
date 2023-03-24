@@ -1798,6 +1798,11 @@ struct wpa_config {
 	 * 1 = PNO enable
 	 */
 	u8 pfn_enable;
+
+	/*
+	 * Save original ap_scan value
+	 */
+	u8 ap_scan_backup;
 #endif /* CONFIG_DRIVER_NL80211_IFX */
 };
 

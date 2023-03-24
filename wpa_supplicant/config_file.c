@@ -340,6 +340,7 @@ struct wpa_config * wpa_config_read(const char *name, struct wpa_config *cfgp,
 #ifdef CONFIG_DRIVER_NL80211_IFX
 		if (os_strcmp(pos, "PFN_ENABLE=1") == 0) {
 			config->pfn_enable = 1;
+			config->ap_scan_backup = config->ap_scan;
 		} else
 #endif /* CONFIG_DRIVER_NL80211_IFX */
 			if (os_strcmp(pos, "network={") == 0) {
@@ -1122,8 +1123,17 @@ static void wpa_config_write_global(FILE *f, struct wpa_config *config)
 #endif /* CONFIG_CTRL_IFACE */
 	if (config->eapol_version != DEFAULT_EAPOL_VERSION)
 		fprintf(f, "eapol_version=%d\n", config->eapol_version);
-	if (config->ap_scan != DEFAULT_AP_SCAN)
-		fprintf(f, "ap_scan=%d\n", config->ap_scan);
+
+#ifdef CONFIG_DRIVER_NL80211_IFX
+	if (config->pfn_enable) {
+		if (config->ap_scan != DEFAULT_AP_SCAN)
+			fprintf(f, "ap_scan=%d\n", config->ap_scan_backup);
+		fprintf(f, "PFN_ENABLE=%d\n", config->pfn_enable);
+
+	} else
+#endif /* CONFIG_DRIVER_NL80211_IFX */
+		if (config->ap_scan != DEFAULT_AP_SCAN)
+			fprintf(f, "ap_scan=%d\n", config->ap_scan);
 	if (config->disable_scan_offload)
 		fprintf(f, "disable_scan_offload=%d\n",
 			config->disable_scan_offload);

@@ -4702,6 +4702,11 @@ int wpa_supplicant_remove_network(struct wpa_supplicant *wpa_s, int id)
 	struct wpa_ssid *ssid, *prev = wpa_s->current_ssid;
 	int was_disabled;
 
+#ifdef CONFIG_DRIVER_NL80211_IFX
+	if (wpa_s->conf->pfn_enable)
+		wpa_s->conf->ap_scan = DISABLE_SUPP_SCAN;
+#endif /* CONFIG_DRIVER_NL80211_IFX */
+
 	ssid = wpa_config_get_network(wpa_s->conf, id);
 	if (!ssid)
 		return -1;
@@ -4764,6 +4769,11 @@ int wpa_supplicant_remove_all_networks(struct wpa_supplicant *wpa_s)
 	     WPA_DRIVER_FLAGS2_OWE_OFFLOAD_STA))
 		wpa_drv_flush_pmkid(wpa_s);
 
+#ifdef CONFIG_DRIVER_NL80211_IFX
+	if (wpa_s->conf->pfn_enable)
+		wpa_s->conf->ap_scan = DISABLE_SUPP_SCAN;
+#endif /* CONFIG_DRIVER_NL80211_IFX */
+
 	if (wpa_s->sched_scanning)
 		wpa_supplicant_cancel_sched_scan(wpa_s);
 
@@ -4803,6 +4813,11 @@ int wpa_supplicant_remove_all_networks(struct wpa_supplicant *wpa_s)
 void wpa_supplicant_enable_network(struct wpa_supplicant *wpa_s,
 				   struct wpa_ssid *ssid)
 {
+#ifdef CONFIG_DRIVER_NL80211_IFX
+	if (wpa_s->conf->pfn_enable)
+		wpa_s->conf->ap_scan = wpa_s->conf->ap_scan_backup;
+#endif /* CONFIG_DRIVER_NL80211_IFX */
+
 	if (ssid == NULL) {
 		for (ssid = wpa_s->conf->ssid; ssid; ssid = ssid->next)
 			wpa_supplicant_enable_one_network(wpa_s, ssid);
@@ -4899,6 +4914,11 @@ void wpa_supplicant_select_network(struct wpa_supplicant *wpa_s,
 
 	struct wpa_ssid *other_ssid;
 	int disconnected = 0;
+
+#ifdef CONFIG_DRIVER_NL80211_IFX
+	if (wpa_s->conf->pfn_enable)
+		wpa_s->conf->ap_scan = wpa_s->conf->ap_scan_backup;
+#endif /* CONFIG_DRIVER_NL80211_IFX */
 
 	if (ssid && ssid != wpa_s->current_ssid && wpa_s->current_ssid) {
 		if (wpa_s->wpa_state >= WPA_AUTHENTICATING)
@@ -5119,6 +5139,11 @@ int wpa_supplicant_set_ap_scan(struct wpa_supplicant *wpa_s, int ap_scan)
 {
 
 	int old_ap_scan;
+
+#ifdef CONFIG_DRIVER_NL80211_IFX
+	if (wpa_s->conf->pfn_enable)
+		wpa_s->conf->ap_scan = wpa_s->conf->ap_scan_backup;
+#endif /* CONFIG_DRIVER_NL80211_IFX */
 
 	if (ap_scan < 0 || ap_scan > 2)
 		return -1;
@@ -8805,6 +8830,11 @@ int disallowed_ssid(struct wpa_supplicant *wpa_s, const u8 *ssid,
  */
 void wpas_request_connection(struct wpa_supplicant *wpa_s)
 {
+#ifdef CONFIG_DRIVER_NL80211_IFX
+	if (wpa_s->conf->pfn_enable)
+		wpa_s->conf->ap_scan = wpa_s->conf->ap_scan_backup;
+#endif /* CONFIG_DRIVER_NL80211_IFX */
+
 	wpa_s->normal_scans = 0;
 	wpa_s->scan_req = NORMAL_SCAN_REQ;
 	wpa_supplicant_reinit_autoscan(wpa_s);
@@ -8828,6 +8858,11 @@ void wpas_request_connection(struct wpa_supplicant *wpa_s)
  */
 void wpas_request_disconnection(struct wpa_supplicant *wpa_s)
 {
+#ifdef CONFIG_DRIVER_NL80211_IFX
+	if (wpa_s->conf->pfn_enable)
+		wpa_s->conf->ap_scan = DISABLE_SUPP_SCAN;
+#endif /* CONFIG_DRIVER_NL80211_IFX */
+
 #ifdef CONFIG_SME
 	wpa_s->sme.prev_bssid_set = 0;
 #endif /* CONFIG_SME */

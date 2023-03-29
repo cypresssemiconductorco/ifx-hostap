@@ -2315,6 +2315,8 @@ struct wpa_driver_capa {
 #define WPA_DRIVER_FLAGS2_TWT_OFFLOAD		0x0000000000400000ULL
 /** Driver supports MBO param configuration */
 #define WPA_DRIVER_FLAGS2_MBO_OFFLOAD		0x0000000000800000ULL
+/** Driver supports MBO param configuration */
+#define WPA_DRIVER_FLAGS2_WNM_MAXIDLE		0x0000000001000000ULL
 	u64 flags2;
 
 #define FULL_AP_CLIENT_STATE_SUPP(drv_flags) \
@@ -3091,6 +3093,11 @@ struct drv_config_mbo_params {
 };
 #endif /* CONFIG_MBO */
 
+struct drv_maxidle_wnm_params {
+	u8  get_info;
+	int period;
+	int protect;
+};
 /**
  * struct wpa_driver_ops - Driver interface API definition
  *
@@ -5241,6 +5248,13 @@ struct wpa_driver_ops {
 	 */
 	int (*config_mbo)(void *priv, struct drv_config_mbo_params *params);
 #endif /* CONFIG_MBO */
+
+#ifdef CONFIG_WNM
+	/**
+	 * maxidle_wnm - Configure WNM maxidle params
+	 */
+	int (*maxidle_wnm)(void *priv, struct drv_maxidle_wnm_params *params);
+#endif /* CONFIG_WNM */
 };
 
 /**

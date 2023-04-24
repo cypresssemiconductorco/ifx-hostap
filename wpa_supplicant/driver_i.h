@@ -1193,4 +1193,24 @@ wpas_drv_get_sta_mlo_info(struct wpa_supplicant *wpa_s,
 	return wpa_s->driver->get_sta_mlo_info(wpa_s->drv_priv, mlo_info);
 }
 
+static inline int
+wpa_drv_setup_twt(struct wpa_supplicant *wpa_s,
+		  struct drv_setup_twt_params *params)
+{
+	if (!wpa_s->driver->setup_twt)
+		return -1;
+
+	return wpa_s->driver->setup_twt(wpa_s->drv_priv, params);
+}
+
+static inline int
+wpa_drv_teardown_twt(struct wpa_supplicant *wpa_s,
+		     struct drv_teardown_twt_params *params)
+{
+	if (!wpa_s->driver->teardown_twt)
+		return -1;
+
+	return wpa_s->driver->teardown_twt(wpa_s->drv_priv, params);
+}
+
 #endif /* DRIVER_I_H */

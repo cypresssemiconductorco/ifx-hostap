@@ -2311,6 +2311,8 @@ struct wpa_driver_capa {
 #define WPA_DRIVER_FLAGS2_SAE_OFFLOAD_AP	0x0000000000100000ULL
 /** Driver supports FT OKC fast roaming */
 #define WPA_DRIVER_FLAGS2_ROAM_OFFLOAD		0x0000000000200000ULL
+/** Driver supports TWT session Negotiation & Management offload */
+#define WPA_DRIVER_FLAGS2_TWT_OFFLOAD		0x0000000000400000ULL
 	u64 flags2;
 
 #define FULL_AP_CLIENT_STATE_SUPP(drv_flags) \
@@ -3009,6 +3011,34 @@ struct driver_sta_mlo_info {
 		unsigned int freq;
 		struct t2lm_mapping t2lmap;
 	} links[MAX_NUM_MLD_LINKS];
+};
+
+struct drv_setup_twt_params {
+	u8 dtok;
+	u64 twt;
+	u8 min_twt;
+	u8 exponent;
+	u16 mantissa;
+	u8 setup_cmd;
+	u8 requestor;
+	u8 trigger;
+	u8 implicit;
+	u8 flow_type;
+	u8 flow_id;
+	u8 bcast_twt_id;
+	u8 protection;
+	u8 twt_channel;
+	u8 control;
+	u8 negotiation_type;
+	u8 twt_info_frame_disabled;
+	u8 min_twt_unit;	/* true - in TUs, false - in 256us */
+};
+
+struct drv_teardown_twt_params {
+	u8 negotiation_type;
+	u8 flow_id;
+	u8 bcast_twt_id;
+	u8 teardown_all_twt;
 };
 
 /**
@@ -5142,6 +5172,18 @@ struct wpa_driver_ops {
 			      const u8 *match, size_t match_len,
 			      bool multicast);
 #endif /* CONFIG_TESTING_OPTIONS */
+
+	/**
+	 * setup_twt - Setup a TWT session
+	 * @params: Setup TWT params
+	 */
+	int (*setup_twt)(void *priv, struct drv_setup_twt_params *params);
+
+	/**
+	 * teardown_twt - Teardown the already negotiated TWT session
+	 * @params: Teardown TWT params
+	 */
+	int (*teardown_twt)(void *priv, struct drv_teardown_twt_params *params);
 };
 
 /**

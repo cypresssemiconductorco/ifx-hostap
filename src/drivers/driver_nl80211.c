@@ -14088,6 +14088,10 @@ static int nl80211_ifx_setup_twt(struct wpa_driver_nl80211_data *drv,
 	     nla_put_u64(msg, IFX_VENDOR_ATTR_TWT_PARAM_WAKE_TIME,
 			 params->twt)) ||
 
+	    (params->twt_offset &&
+	     nla_put_u64(msg, IFX_VENDOR_ATTR_TWT_PARAM_WAKE_TIME_OFFSET,
+			 params->twt_offset)) ||
+
 	    nla_put_u8(msg, IFX_VENDOR_ATTR_TWT_PARAM_MIN_WAKE_DURATION,
 		       params->min_twt) ||
 

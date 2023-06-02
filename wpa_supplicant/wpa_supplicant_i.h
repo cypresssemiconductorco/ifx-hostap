@@ -2023,6 +2023,7 @@ bool wpas_ap_link_address(struct wpa_supplicant *wpa_s, const u8 *addr);
 
 #ifdef CONFIG_DRIVER_NL80211_IFX
 #define DISABLE_SUPP_SCAN		2
+#define PFN_CONFIG_AND_COUNT_SIZE	2
 
 int wpas_get_network_blob_count(struct wpa_ssid *head);
 #endif /* CONFIG_DRIVER_NL80211_IFX */

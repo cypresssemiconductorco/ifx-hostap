@@ -7454,9 +7454,6 @@ static int wpa_supplicant_init_iface(struct wpa_supplicant *wpa_s,
 #endif /* CONFIG_MBO */
 
 	wpa_supplicant_set_default_scan_ies(wpa_s);
-#ifdef CONFIG_DRIVER_NL80211_IFX
-	wpas_config_offload_send_pfn_config(wpa_s);
-#endif /* CONFIG_DRIVER_NL80211_IFX */
 	return 0;
 }
 
@@ -7704,6 +7701,9 @@ struct wpa_supplicant * wpa_supplicant_add_iface(struct wpa_global *global,
 	}
 #endif /* CONFIG_P2P */
 
+#ifdef CONFIG_DRIVER_NL80211_IFX
+	wpas_config_offload_send_pfn_config(wpa_s);
+#endif /* CONFIG_DRIVER_NL80211_IFX */
 	return wpa_s;
 }
 

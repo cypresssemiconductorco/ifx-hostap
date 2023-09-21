@@ -1228,13 +1228,11 @@ static int dpp_configuration_parse_helper(struct dpp_authentication *auth,
 		pos += 6;
 		end = os_strchr(pos, ' ');
 		pass_len = end ? (size_t) (end - pos) : os_strlen(pos);
-		pass_len /= 2;
 		if (pass_len > 63 || pass_len < 8)
 			goto fail;
 		conf->passphrase = os_zalloc(pass_len + 1);
-		if (!conf->passphrase ||
-		    hexstr2bin(pos, (u8 *) conf->passphrase, pass_len) < 0)
-			goto fail;
+		memset(conf->passphrase, 0, pass_len + 1);
+		memcpy(conf->passphrase, pos, pass_len);
 	}
 
 	pos = os_strstr(cmd, " psk=");

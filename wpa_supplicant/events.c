@@ -4171,18 +4171,12 @@ static void wpa_supplicant_event_assoc(struct wpa_supplicant *wpa_s,
 		}
 
 		if (data && data->assoc_info.roam_indication) {
-			if (wpa_key_mgmt_wpa_any(wpa_s->current_ssid->key_mgmt)) {
-				u8 wpa_ie[80];
-				size_t wpa_ie_len = sizeof(wpa_ie);
-
-				wpa_dbg(wpa_s, MSG_DEBUG, "Set suite for roam event", __func__);
-				if (wpa_supplicant_set_suites(wpa_s, NULL, wpa_s->current_ssid,
-								  wpa_ie, &wpa_ie_len) < 0)
-					wpa_dbg(wpa_s, MSG_DEBUG, "Could not set WPA suites");
-			} else {
-				wpa_supplicant_set_non_wpa_policy(wpa_s, wpa_s->current_ssid);
+			if (wpa_s->current_ssid->psk_set) {
+				wpa_hexdump_key(MSG_MSGDUMP, "reset PMK from config",
+						wpa_s->current_ssid->psk, PMK_LEN);
+				wpa_sm_set_pmk(wpa_s->wpa, wpa_s->current_ssid->psk, PMK_LEN, NULL,
+				       NULL);
 			}
-
 		}
 	}
 

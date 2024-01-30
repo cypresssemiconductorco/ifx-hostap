@@ -29,10 +29,24 @@
  *	allows more efficient use of the airtime between the transmitting and receiving WLAN
  *	devices.
  *
+ * @IFX_VENDOR_SCMD_ACS: Configure the Automatic Channel Selection (ACS) feature
+ *
  * @IFX_VENDOR_SCMD_SET_MAC_P2P_DEV: Set MAC address for a P2P Discovery device.
  *	Uses Vendor attribute IFX_VENDOR_ATTR_MAC_ADDR to pass the MAC address.
  *
+ * @IFX_VENDOR_SCMD_MUEDCA: Configure Multi User Enhanced Distrubuted Channel Access (MU-EDCA).
+ *
+ * @IFX_VENDOR_SCMD_LDPC: Enable support for handling Low Density Parity Check (LDPC) Coding
+ *	in received payload.
+ *
+ * @IFX_VENDOR_SCMD_AMSDU: Control AMSDU aggregation for both TX & RX on all the TID queues.
+ *
  * @IFX_VENDOR_SCMD_TWT_OFFLOAD: Offload Target Wake Time (TWT) Session configuration to the Dongle.
+ *
+ * @IFX_VENDOR_SCMD_OCE: Configure the Optimized Connectivity Experience (OCE) functionality
+ *	related parameters.
+ *
+ * @IFX_VENDOR_SCMD_BSSCOLOR: Set BSS Color (1-63) for AP Mode operation in HE.
  *
  * @IFX_VENDOR_SCMD_RAND_MAC: Configure the Random MAC module in the Dongle.
  *
@@ -55,11 +69,15 @@ enum ifx_nl80211_vendor_subcmds {
 	IFX_VENDOR_SCMD_DCMD			= 1,
 	/* Reserved 2-5 */
 	IFX_VENDOR_SCMD_FRAMEBURST		= 6,
-	/* Reserved 7-9 */
+	/* Reserved 7-8 */
+	IFX_VENDOR_SCMD_ACS			= 9,
 	IFX_VENDOR_SCMD_SET_MAC_P2P_DEV		= 10,
-	/* Reserved 11-13 */
+	IFX_VENDOR_SCMD_MUEDCA			= 11,
+	IFX_VENDOR_SCMD_LDPC			= 12,
+	IFX_VENDOR_SCMD_AMSDU			= 13,
 	IFX_VENDOR_SCMD_TWT_OFFLOAD		= 14,
-	/* Reserved 15-16 */
+	IFX_VENDOR_SCMD_OCE			= 15,
+	IFX_VENDOR_SCMD_BSSCOLOR		= 16,
 	IFX_VENDOR_SCMD_RAND_MAC		= 17,
 	/* Reserved 18 */
 	IFX_VENDOR_SCMD_MPC			= 19,

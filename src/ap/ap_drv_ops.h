@@ -463,6 +463,13 @@ static inline int hostapd_drv_link_add(struct hostapd_data *hapd,
 
 }
 #endif /* CONFIG_IEEE80211BE */
+static inline int hostapd_drv_get_hwcaps(struct hostapd_data *hapd, u32 *hwcaps)
+{
+	if (hapd->driver == NULL || hapd->driver->hw_caps == NULL)
+		return -1;
+
+	return hapd->driver->hw_caps(hapd->drv_priv, hwcaps);
+}
 
 static inline int
 hostapd_drv_remove_pmkid(struct hostapd_data *hapd, struct wpa_pmkid_params *params)

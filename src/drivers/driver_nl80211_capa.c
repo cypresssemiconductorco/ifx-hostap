@@ -1157,6 +1157,12 @@ static int wiphy_info_handler(struct nl_msg *msg, void *arg)
 					wpa_printf(MSG_DEBUG,
 						   "Enabled allowing IFX WNM Config");
 					break;
+				case IFX_VENDOR_SCMD_HWCAPS:
+					drv->capa.flags2 |=
+						WPA_DRIVER_FLAGS2_HWCAPS;
+					wpa_printf(MSG_DEBUG,
+						   "Enabled get HW capability");
+					break;
 				}
 #endif /* CONFIG_DRIVER_NL80211_IFX */
 			}

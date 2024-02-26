@@ -1739,6 +1739,7 @@ int hostapd_setup_wpa(struct hostapd_data *hapd)
 		!!(hapd->iface->drv_flags2 &
 		   WPA_DRIVER_FLAGS2_PROT_RANGE_NEG_AP);
 
+	hostapd_drv_get_hwcaps(hapd, _conf.hw_caps);
 	hapd->wpa_auth = wpa_init(hapd->own_addr, &_conf, &cb, hapd);
 	if (hapd->wpa_auth == NULL) {
 		wpa_printf(MSG_ERROR, "WPA initialization failed.");

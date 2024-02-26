@@ -66,6 +66,8 @@
  *
  * @IFX_VENDOR_SCMD_WNM: Configure Wireless Network Management (WNM) params in the device.
  *
+ * @IFX_VENDOR_SCMD_HWCAPS: Get device's capability.
+ *
  * @IFX_VENDOR_SCMD_MAX: This acts as a the tail of cmds list.
  *      Make sure it located at the end of the list.
  */
@@ -91,6 +93,7 @@ enum ifx_nl80211_vendor_subcmds {
 	IFX_VENDOR_SCMD_PFN_STATUS		= 22,
 	/* Reserved 23-24 */
 	IFX_VENDOR_SCMD_WNM			= 25,
+	IFX_VENDOR_SCMD_HWCAPS			= 26,
 	IFX_VENDOR_SCMD_MAX
 };
 
@@ -402,6 +405,15 @@ enum ifx_vendor_attr_wnm {
 	IFX_VENDOR_ATTR_WNM_CMD,
 	IFX_VENDOR_ATTR_WNM_PARAMS,
 	IFX_VENDOR_ATTR_WNM_MAX
+};
+
+enum ifx_vendor_hw_caps {
+	IFX_VENDOR_HW_CAPS_REPLAYCNTS,
+	IFX_VENDOR_HW_CAPS_MAX
+};
+
+static const char * const hw_caps_name[] = {
+	[IFX_VENDOR_HW_CAPS_REPLAYCNTS] = "replay counters"
 };
 
 enum ifx_wnm_config_cmd_type {

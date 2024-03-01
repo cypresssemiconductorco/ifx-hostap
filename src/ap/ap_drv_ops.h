@@ -464,4 +464,13 @@ static inline int hostapd_drv_link_add(struct hostapd_data *hapd,
 }
 #endif /* CONFIG_IEEE80211BE */
 
+static inline int
+hostapd_drv_remove_pmkid(struct hostapd_data *hapd, struct wpa_pmkid_params *params)
+{
+	if (!hapd->driver || !hapd->drv_priv || !hapd->driver->remove_pmkid)
+		return -1;
+
+	return hapd->driver->remove_pmkid(hapd->drv_priv, params);
+}
+
 #endif /* AP_DRV_OPS */

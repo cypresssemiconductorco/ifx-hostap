@@ -73,7 +73,7 @@ void wnm_set_coloc_intf_elems(struct wpa_supplicant *wpa_s,
 bool wnm_is_bss_excluded(struct wpa_supplicant *wpa_s, struct wpa_bss *bss);
 
 int wnm_config_maxidle(struct wpa_supplicant *wpa_s, const char *cmd,
-		       int period, int option);
+		       int *period, int *option);
 
 #ifdef CONFIG_WNM
 

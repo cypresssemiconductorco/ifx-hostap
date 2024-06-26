@@ -1602,6 +1602,7 @@ struct wpa_supplicant {
 	 * owe_transition_search == 1 */
 	int *owe_trans_scan_freq;
 #endif /* CONFIG_OWE */
+	bool is_ap_4way_offloaded;
 };
 
 

@@ -14437,6 +14437,7 @@ static int wpa_driver_nl80211_config_mbo(void *priv, struct drv_config_mbo_param
 #endif /* CONFIG_MBO */
 
 #ifdef CONFIG_WNM
+#ifdef CONFIG_DRIVER_NL80211_IFX
 static int wpa_driver_nl80211_maxidle_wnm_reply_handler(struct nl_msg *msg, void *arg)
 {
 	struct nlattr *tb_msg[NL80211_ATTR_MAX + 1];
@@ -14517,6 +14518,7 @@ fail:
 	nlmsg_free(msg);
 	return ret;
 }
+#endif /* CONFIG_DRIVER_NL80211_IFX */
 
 static int wpa_driver_nl80211_config_maxidle_wnm(void *priv, struct drv_maxidle_wnm_params *params)
 {
